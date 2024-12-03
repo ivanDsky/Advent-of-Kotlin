@@ -1,6 +1,3 @@
-import kotlin.math.abs
-import kotlin.math.sign
-
 fun main() {
     fun parseInput(input: List<String>): List<List<Int>> {
         return input.map { line ->
@@ -9,19 +6,11 @@ fun main() {
     }
 
     fun List<Int>.isLevelSafe(): Boolean {
-        if (size <= 1) return true
-        var prev = this[0]
-        val sign = (this[1] - this[0]).sign
+        val prevCurrLevels = this.zipWithNext()
+        val isAllDescending = prevCurrLevels.all { (prev, curr) -> curr - prev in -3..-1 }
+        val isAllAscending = prevCurrLevels.all { (prev, curr) -> curr - prev in 1..3 }
 
-        if (sign == 0) return false
-
-        for (level in drop(1)) {
-            if (abs(level - prev) !in 1..3) return false
-            if ((level - prev).sign != sign) return false
-            prev = level
-        }
-
-        return true
+        return isAllDescending || isAllAscending
     }
 
     fun part1(input: List<String>): Int {
