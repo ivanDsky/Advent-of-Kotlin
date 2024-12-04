@@ -3,4 +3,5 @@
 .kotlin/
 build
 src/**/*.txt
+src/year2023
 local.properties
