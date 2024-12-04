@@ -1,19 +1,5 @@
 fun main() {
 
-    val directionsXMAS = List(9) { packedMul ->
-        val mulI = packedMul / 3 - 1
-        val mulJ = packedMul % 3 - 1
-        (0..3).map { mulI * it to mulJ * it }
-    }
-
-
-
-    val diagonals = listOf(-1 to -1, -1 to 1, 1 to 1, 1 to -1)
-
-    val directionsX_MAS = List(diagonals.size){ shift ->
-        diagonals.drop(shift) + diagonals.take(shift) + listOf(0 to 0)
-    }
-
     fun List<String>.isXMAS(i: Int, j: Int, direction: List<Pair<Int, Int>>, pattern: String): Boolean {
         for (index in direction.indices) {
             val ni = i + direction[index].first
@@ -36,17 +22,32 @@ fun main() {
         return result
     }
 
+
+    val directionsXMAS = List(9) { packedMul ->
+        val mulI = packedMul / 3 - 1 // -1, 0, 1
+        val mulJ = packedMul % 3 - 1 // -1, 0, 1
+        (0..3).map { mulI * it to mulJ * it }
+    }
+
     fun part1(input: List<String>): Int = solve(input, directionsXMAS, "XMAS")
+
+
+
+    val diagonals = listOf(-1 to -1, -1 to 1, 1 to 1, 1 to -1)
+
+    val directionsX_MAS = List(diagonals.size){ shift ->
+        diagonals.drop(shift) + diagonals.take(shift) + (0 to 0)
+    }
 
     fun part2(input: List<String>): Int = solve(input, directionsX_MAS, "MMSSA")
 
-    // Or read a large test input from the `src/Day06_test.txt` file:
+    // Or read a large test input from the `src/Day04_test.txt` file:
     val testInput = readInput("Day04_test")
 
     check(part1(testInput) == 18)
     check(part2(testInput) == 9)
 
-    // Read the input from the `src/Day06.txt` file.
+    // Read the input from the `src/Day04.txt` file.
     val input = readInput("Day04")
     part1(input).println()
     part2(input).println()
