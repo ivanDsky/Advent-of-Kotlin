@@ -1,4 +1,7 @@
-import year2023.Direction
+
+enum class Direction {
+    UP, RIGHT, DOWN, LEFT,
+}
 
 fun main() {
     val deltas = listOf(
