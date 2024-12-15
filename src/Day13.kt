@@ -1,5 +1,3 @@
-import kotlin.math.min
-
 fun main() {
     data class Input(val a: Vec2, val b: Vec2, val prize: Vec2)
     val regex = Regex("""X.(\d+).*?Y.(\d+)""")
