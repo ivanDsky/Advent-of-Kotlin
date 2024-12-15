@@ -1,11 +1,11 @@
 fun main() {
     data class Input(val a: Vec2, val b: Vec2, val prize: Vec2)
-    val regex = Regex("""X.(\d+).*?Y.(\d+)""")
+    val regex = Regex("""\d+""")
     fun parseLine(input: List<String>): Input {
-        val (ax, ay) = regex.find(input[0])!!.destructured
-        val (bx, by) = regex.find(input[1])!!.destructured
-        val (px, py) = regex.find(input[2])!!.destructured
-        return Input(Vec2(ax.toInt(), ay.toInt()), Vec2(bx.toInt(), by.toInt()), Vec2(px.toInt(), py.toInt()))
+        val (ax, ay) = regex.findAll(input[0]).toList().map { it.value.toInt() }
+        val (bx, by) = regex.findAll(input[1]).toList().map { it.value.toInt() }
+        val (px, py) = regex.findAll(input[2]).toList().map { it.value.toInt() }
+        return Input(Vec2(ax, ay), Vec2(bx, by), Vec2(px, py))
     }
     fun parseInput(input: List<String>): List<Input> = input.chunked(4).map { parseLine(it) }
 
